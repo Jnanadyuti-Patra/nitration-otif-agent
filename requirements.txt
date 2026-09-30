@@ -1,0 +1,9 @@
+numpy
+pandas
+simpy
+scikit-learn
+pydantic>=2
+langchain-core>=1.0
+langgraph>=1.0
+langchain-ollama>=1.0
+pytest

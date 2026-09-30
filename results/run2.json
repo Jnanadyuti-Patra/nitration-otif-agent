@@ -1,0 +1,50 @@
+﻿{
+  "question": "Why did our export OTIF drop from April, and what is it costing us?",
+  "tools_chosen_by_llm": [
+    "otif_by",
+    "order_lead_time_breakdown"
+  ],
+  "tools_run": [
+    "otif_by{\"month\": \"April\"}",
+    "order_lead_time_breakdown{\"month\": \"April\"}",
+    "value_at_stake"
+  ],
+  "analyst_rounds": 1,
+  "unsupported_numbers_left": [],
+  "diagnosis": {
+    "summary": "The provided JSON evidence does not contain specific information about the manager's question regarding the OTIF drop from April. Therefore, I cannot directly answer the manager's question based on the given data. However, I can analyze the provided data to infer potential root causes and their impact on the export OTIF and overall costs. Here's a breakdown of the key points from the evidence:",
+    "root_causes": [
+      {
+        "rank": 1,
+        "driver": "summer_cooling_water_excess_hours_all_reactors",
+        "evidence": "1181.6 excess hours of warm summer cooling water",
+        "impact_lakh_inr": 162.2
+      },
+      {
+        "rank": 2,
+        "driver": "R-103_fouling_lost_margin_lakh_inr",
+        "evidence": "84.7 lakh in lost margin due to fouled reactor jacket",
+        "impact_lakh_inr": 84.7
+      },
+      {
+        "rank": 3,
+        "driver": "rework_batches",
+        "evidence": "74 rework batches",
+        "impact_lakh_inr": 18.5
+      },
+      {
+        "rank": 4,
+        "driver": "late_orders",
+        "evidence": "80 late orders",
+        "impact_lakh_inr": 16.4
+      }
+    ]
+  },
+  "sops": {
+    "summer_cooling_water_excess_hours_all_reactors": "## SOP-U03 Summer cooling-water operation",
+    "R-103_fouling_lost_margin_lakh_inr": "## SOP-M07 Jacket fouling and cleaning",
+    "rework_batches": "## SOP-L01 Export dispatch",
+    "late_orders": "## SOP-L01 Export dispatch"
+  },
+  "seconds": 133.5
+}

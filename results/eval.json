@@ -1,0 +1,199 @@
+{
+  "questions": 3,
+  "root_cause_recall": 0.42,
+  "grounded_runs": 1,
+  "mean_seconds": 193.4,
+  "runs": [
+    {
+      "question": "Why did our export OTIF drop from April, and what is it costing us?",
+      "tools_chosen_by_llm": [
+        "otif_by",
+        "order_lead_time_breakdown",
+        "rework_rate_by",
+        "qc_wait_by_shift",
+        "value_at_stake"
+      ],
+      "tools_run": [
+        "otif_by{\"dimension\": \"month\"}",
+        "order_lead_time_breakdown",
+        "rework_rate_by{\"dimension\": \"supplier\"}",
+        "qc_wait_by_shift",
+        "value_at_stake",
+        "jacket_heat_transfer"
+      ],
+      "analyst_rounds": 1,
+      "unsupported_numbers_left": [],
+      "diagnosis": {
+        "summary": "The manager's question is about the drop in Overall Targeted In-Time Fulfillment (OTIF) from April, and the associated costs. The evidence suggests that the drop in OTIF from April to May is a key factor in the question. The evidence also indicates that the drop in OTIF is likely due to increased rework rates and longer order lead times, which have significant financial impacts. The root causes of the drop in OTIF are ranked by rupee impact as follows: increased rework rates, longer order lead times, and excess cooling water temperature in reactors.",
+        "root_causes": [
+          {
+            "rank": 1,
+            "driver": "rework_rate_by_supplier",
+            "evidence": "rework_rate_by_supplier: rework_pct: Supplier A = 4.3%, Supplier B = 16.5%",
+            "impact_lakh_inr": null
+          },
+          {
+            "rank": 2,
+            "driver": "order_lead_time_breakdown",
+            "evidence": "order_lead_time_breakdown: 2026-05: wait_for_reactor_h = 148.5, charge_to_transfer_h = 13.3, transfer_to_release_h = 2.3",
+            "impact_lakh_inr": null
+          },
+          {
+            "rank": 3,
+            "driver": "cooling_water_temperature",
+            "evidence": "jacket_heat_transfer: 2026-05: R-103 = 291.0, design_U_clean = 450.0",
+            "impact_lakh_inr": null
+          }
+        ]
+      },
+      "sops": {
+        "rework_rate_by_supplier": "## SOP-Q02 Incoming chlorobenzene specification",
+        "order_lead_time_breakdown": "## SOP-L01 Export dispatch",
+        "cooling_water_temperature": "## SOP-M07 Jacket fouling and cleaning"
+      },
+      "seconds": 171.8,
+      "found": {
+        "R-103 jacket fouling": true,
+        "summer cooling water": true,
+        "Supplier B moisture / rework": true,
+        "night-shift QC delay": false
+      }
+    },
+    {
+      "question": "Our customers say shipments from Dahej are late since summer. What are the root causes and what should we fix first?",
+      "tools_chosen_by_llm": [
+        "otif_by",
+        "order_lead_time_breakdown",
+        "rework_rate_by",
+        "jacket_heat_transfer"
+      ],
+      "tools_run": [
+        "otif_by{\"dimension\": \"month\"}",
+        "order_lead_time_breakdown",
+        "rework_rate_by{\"dimension\": \"supplier\"}",
+        "jacket_heat_transfer{\"reactor\": \"R-101\"}",
+        "qc_wait_by_shift",
+        "value_at_stake"
+      ],
+      "analyst_rounds": 2,
+      "unsupported_numbers_left": [
+        "118.16",
+        "6",
+        "6.17",
+        "7",
+        "7.4",
+        "8.47"
+      ],
+      "diagnosis": {
+        "summary": "The manager's question is about the root causes of late shipments from Dahej during the summer months. The evidence supports the following root causes and their rupee impacts:",
+        "root_causes": [
+          {
+            "rank": 1,
+            "driver": "summer_cw_lost_margin_lakh_inr",
+            "evidence": "value_at_stake",
+            "impact_lakh_inr": 162.2
+          },
+          {
+            "rank": 2,
+            "driver": "summer_cooling_water_excess_hours_all_reactors",
+            "evidence": "otif_by{dimension: 'month'}",
+            "impact_lakh_inr": 118.16
+          },
+          {
+            "rank": 3,
+            "driver": "late_delivery_penalties_lakh_inr",
+            "evidence": "value_at_stake",
+            "impact_lakh_inr": 16.4
+          },
+          {
+            "rank": 4,
+            "driver": "rework_cost_lakh_inr",
+            "evidence": "value_at_stake",
+            "impact_lakh_inr": 18.5
+          },
+          {
+            "rank": 5,
+            "driver": "rework_batches",
+            "evidence": "value_at_stake",
+            "impact_lakh_inr": 7.4
+          },
+          {
+            "rank": 6,
+            "driver": "R-103_fouling_lost_margin_lakh_inr",
+            "evidence": "value_at_stake",
+            "impact_lakh_inr": 8.47
+          },
+          {
+            "rank": 7,
+            "driver": "R-103_excess_dosing_hours",
+            "evidence": "value_at_stake",
+            "impact_lakh_inr": 6.17
+          }
+        ]
+      },
+      "sops": {
+        "summer_cw_lost_margin_lakh_inr": "## SOP-L01 Export dispatch",
+        "summer_cooling_water_excess_hours_all_reactors": "## SOP-L01 Export dispatch",
+        "late_delivery_penalties_lakh_inr": "## SOP-L01 Export dispatch",
+        "rework_cost_lakh_inr": "## SOP-L01 Export dispatch",
+        "rework_batches": "## SOP-L01 Export dispatch",
+        "R-103_fouling_lost_margin_lakh_inr": "## SOP-L01 Export dispatch",
+        "R-103_excess_dosing_hours": "## SOP-L01 Export dispatch"
+      },
+      "seconds": 238.1,
+      "found": {
+        "R-103 jacket fouling": true,
+        "summer cooling water": true,
+        "Supplier B moisture / rework": false,
+        "night-shift QC delay": false
+      }
+    },
+    {
+      "question": "Where is lead time being lost in the plant, and how much money is at stake?",
+      "tools_chosen_by_llm": [
+        "order_lead_time_breakdown"
+      ],
+      "tools_run": [
+        "order_lead_time_breakdown",
+        "otif_by",
+        "jacket_heat_transfer",
+        "rework_rate_by",
+        "qc_wait_by_shift",
+        "value_at_stake"
+      ],
+      "analyst_rounds": 2,
+      "unsupported_numbers_left": [
+        "13.7",
+        "150.8"
+      ],
+      "diagnosis": {
+        "summary": "Lead time is being lost primarily in the 'wait_for_reactor' phase, which includes the time from order creation to batch charging. The median hours lost in 'wait_for_reactor' are highest in May (148.5 hours) and lowest in February (3.5 hours). The median hours lost in 'transfer_to_release' are highest in May (2.3 hours) and lowest in February (3.1 hours). The total median hours lost in 'wait_for_reactor' and 'transfer_to_release' phases are highest in May (150.8 hours) and lowest in February (13.7 hours).",
+        "root_causes": [
+          {
+            "rank": 1,
+            "driver": "wait_for_reactor_h",
+            "evidence": ":[{",
+            "impact_lakh_inr": null
+          },
+          {
+            "rank": 2,
+            "driver": "transfer_to_release_h",
+            "evidence": ":[{",
+            "impact_lakh_inr": null
+          }
+        ]
+      },
+      "sops": {
+        "wait_for_reactor_h": "## SOP-L01 Export dispatch",
+        "transfer_to_release_h": "## SOP-L01 Export dispatch"
+      },
+      "seconds": 170.4,
+      "found": {
+        "R-103 jacket fouling": false,
+        "summer cooling water": false,
+        "Supplier B moisture / rework": false,
+        "night-shift QC delay": false
+      }
+    }
+  ]
+}
